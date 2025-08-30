@@ -1,43 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
 <head>
     <title>Ticket View</title>
 </head>
 <body>
-    <h1>Ticket View</h1>
-    <nav>
-        <ul>
-            <li><a th:href="@{/}">Home</a></li>
-            <li><a th:href="@{/tickets}">Tickets</a></li>
-            <li><a th:href="@{/knowledge-base}">Knowledge Base</a></li>
-        </ul>
-    </nav>
-    <div>
-        <strong>Subject:</strong> <span th:text="${ticket.subject}"></span>
+<section>
+    <h1 class="mt-4">Ticket View</h1>
+    <div class="card">
+        <div class="card-header" th:text="${ticket.subject}"></div>
+        <div class="card-body">
+            <p class="card-text" th:text="${ticket.description}"></p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Priority:</strong> <span th:text="${ticket.priority}"></span></li>
+                <li class="list-group-item"><strong>Status:</strong> <span th:text="${ticket.status}"></span></li>
+                <li class="list-group-item"><strong>Assignee:</strong> <span th:text="${ticket.assignee?.name}"></span></li>
+                <li class="list-group-item"><strong>Created At:</strong> <span th:text="${#temporals.format(ticket.createdAt, 'yyyy-MM-dd HH:mm')}"></span></li>
+                <li class="list-group-item" th:if="${ticket.updatedAt != null}"><strong>Updated At:</strong> <span th:text="${#temporals.format(ticket.updatedAt, 'yyyy-MM-dd HH:mm')}"></span></li>
+                <li class="list-group-item" th:if="${ticket.closedAt != null}"><strong>Closed At:</strong> <span th:text="${#temporals.format(ticket.closedAt, 'yyyy-MM-dd HH:mm')}"></span></li>
+            </ul>
+        </div>
+        <div class="card-footer" th:if="${ticket.status != T(com.example.omnichannelticketsystem.domain.Ticket.Status).CLOSED}">
+            <form th:action="@{/tickets/{id}/close(id=${ticket.id})}" method="post" class="d-inline">
+                <button type="submit" class="btn btn-danger">Close Ticket</button>
+            </form>
+            <a th:href="@{/tickets/{id}/edit(id=${ticket.id})}" class="btn btn-warning">Edit</a>
+        </div>
     </div>
-    <div>
-        <strong>Description:</strong> <span th:text="${ticket.description}"></span>
-    </div>
-    <div>
-        <strong>Priority:</strong> <span th:text="${ticket.priority}"></span>
-    </div>
-    <div>
-        <strong>Status:</strong> <span th:text="${ticket.status}"></span>
-    </div>
-    <div>
-        <strong>Assignee:</strong> <span th:text="${ticket.assignee?.name}"></span>
-    </div>
-    <div>
-        <strong>Created At:</strong> <span th:text="${ticket.createdAt}"></span>
-    </div>
-    <div>
-        <strong>Updated At:</strong> <span th:text="${ticket.updatedAt}"></span>
-    </div>
-    <div>
-        <strong>Closed At:</strong> <span th:text="${ticket.closedAt}"></span>
-    </div>
-    <form th:action="@{/tickets/{id}/close(id=${ticket.id})}" method="post">
-        <button type="submit">Close Ticket</button>
-    </form>
+</section>
 </body>
 </html>

@@ -1,46 +1,41 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
 <head>
     <title>Ticket Form</title>
 </head>
 <body>
+<section>
     <h1>Ticket Form</h1>
-    <nav>
-        <ul>
-            <li><a th:href="@{/}">Home</a></li>
-            <li><a th:href="@{/tickets}">Tickets</a></li>
-            <li><a th:href="@{/knowledge-base}">Knowledge Base</a></li>
-        </ul>
-    </nav>
-    <form th:action="@{/tickets}" th:object="${ticket}" method="post">
+    <form th:action="@{${ticket.id == null} ? '/tickets' : '/tickets/' + ${ticket.id}}" th:object="${ticket}" method="post">
         <input type="hidden" th:field="*{id}" />
-        <div>
-            <label for="subject">Subject</label>
-            <input type="text" id="subject" th:field="*{subject}" />
+        <div class="mb-3">
+            <label for="subject" class="form-label">Subject</label>
+            <input type="text" id="subject" class="form-control" th:field="*{subject}" />
         </div>
-        <div>
-            <label for="description">Description</label>
-            <textarea id="description" th:field="*{description}"></textarea>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea id="description" class="form-control" th:field="*{description}"></textarea>
         </div>
-        <div>
-            <label for="priority">Priority</label>
-            <select id="priority" th:field="*{priority}">
+        <div class="mb-3">
+            <label for="priority" class="form-label">Priority</label>
+            <select id="priority" class="form-select" th:field="*{priority}">
                 <option th:each="p : ${priorities}" th:value="${p}" th:text="${p}"></option>
             </select>
         </div>
-        <div>
-            <label for="assignee">Assignee</label>
-            <select id="assignee" th:field="*{assignee}">
+        <div class="mb-3">
+            <label for="assignee" class="form-label">Assignee</label>
+            <select id="assignee" class="form-select" th:field="*{assignee}">
                 <option th:each="u : ${users}" th:value="${u.id}" th:text="${u.name}"></option>
             </select>
         </div>
-        <div th:if="${ticket.id != null}">
-            <label for="status">Status</label>
-            <select id="status" th:field="*{status}">
+        <div class="mb-3" th:if="${ticket.id != null}">
+            <label for="status" class="form-label">Status</label>
+            <select id="status" class="form-select" th:field="*{status}">
                 <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"></option>
             </select>
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+</section>
 </body>
 </html>

@@ -1,31 +1,30 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
 <head>
     <title>Home</title>
 </head>
 <body>
-    <h1>Omnichannel Ticket System</h1>
-    <nav>
-        <ul>
-            <li><a th:href="@{/}">Home</a></li>
-            <li><a th:href="@{/tickets}">Tickets</a></li>
-            <li><a th:href="@{/knowledge-base}">Knowledge Base</a></li>
-        </ul>
-    </nav>
-    <h2>Incidents Closed per User</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>User</th>
-                <th>Closed Incidents</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="entry : ${stats}">
-                <td th:text="${entry.key}"></td>
-                <td th:text="${entry.value}"></td>
-            </tr>
-        </tbody>
-    </table>
+    <section>
+        <h1>Dashboard</h1>
+        <div class="card border-primary mb-3">
+            <div class="card-header">Incidents Closed per User</div>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">User</th>
+                            <th scope="col">Closed Incidents</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="entry : ${stats}" class="table-active">
+                            <td th:text="${entry.key}"></td>
+                            <td th:text="${entry.value}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
