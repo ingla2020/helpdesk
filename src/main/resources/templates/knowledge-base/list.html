@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Knowledge Base</title>
+</head>
+<body>
+    <h1>Knowledge Base</h1>
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/tickets}">Tickets</a></li>
+            <li><a th:href="@{/knowledge-base}">Knowledge Base</a></li>
+        </ul>
+    </nav>
+    <a th:href="@{/knowledge-base/new}">New Article</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="article : ${articles}">
+                <td th:text="${article.title}"></td>
+                <td>
+                    <a th:href="@{/knowledge-base/{id}(id=${article.id})}">View</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

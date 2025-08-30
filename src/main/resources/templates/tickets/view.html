@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ticket View</title>
+</head>
+<body>
+    <h1>Ticket View</h1>
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/tickets}">Tickets</a></li>
+            <li><a th:href="@{/knowledge-base}">Knowledge Base</a></li>
+        </ul>
+    </nav>
+    <div>
+        <strong>Subject:</strong> <span th:text="${ticket.subject}"></span>
+    </div>
+    <div>
+        <strong>Description:</strong> <span th:text="${ticket.description}"></span>
+    </div>
+    <div>
+        <strong>Priority:</strong> <span th:text="${ticket.priority}"></span>
+    </div>
+    <div>
+        <strong>Status:</strong> <span th:text="${ticket.status}"></span>
+    </div>
+    <div>
+        <strong>Assignee:</strong> <span th:text="${ticket.assignee?.name}"></span>
+    </div>
+    <div>
+        <strong>Created At:</strong> <span th:text="${ticket.createdAt}"></span>
+    </div>
+    <div>
+        <strong>Updated At:</strong> <span th:text="${ticket.updatedAt}"></span>
+    </div>
+    <div>
+        <strong>Closed At:</strong> <span th:text="${ticket.closedAt}"></span>
+    </div>
+    <form th:action="@{/tickets/{id}/close(id=${ticket.id})}" method="post">
+        <button type="submit">Close Ticket</button>
+    </form>
+</body>
+</html>

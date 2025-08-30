@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ticket Form</title>
+</head>
+<body>
+    <h1>Ticket Form</h1>
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/tickets}">Tickets</a></li>
+            <li><a th:href="@{/knowledge-base}">Knowledge Base</a></li>
+        </ul>
+    </nav>
+    <form th:action="@{/tickets}" th:object="${ticket}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div>
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" th:field="*{subject}" />
+        </div>
+        <div>
+            <label for="description">Description</label>
+            <textarea id="description" th:field="*{description}"></textarea>
+        </div>
+        <div>
+            <label for="priority">Priority</label>
+            <select id="priority" th:field="*{priority}">
+                <option th:each="p : ${priorities}" th:value="${p}" th:text="${p}"></option>
+            </select>
+        </div>
+        <div>
+            <label for="assignee">Assignee</label>
+            <select id="assignee" th:field="*{assignee}">
+                <option th:each="u : ${users}" th:value="${u.id}" th:text="${u.name}"></option>
+            </select>
+        </div>
+        <div th:if="${ticket.id != null}">
+            <label for="status">Status</label>
+            <select id="status" th:field="*{status}">
+                <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"></option>
+            </select>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
