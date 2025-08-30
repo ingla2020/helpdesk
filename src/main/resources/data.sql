@@ -1,3 +1,16 @@
+CREATE TABLE IF NOT EXISTS users (name VARCHAR(255), email VARCHAR(255));
+
+CREATE TABLE IF NOT EXISTS tickets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    subject VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    priority ENUM('LOW', 'MEDIUM', 'HIGH') NOT NULL DEFAULT 'MEDIUM',
+    status ENUM('OPEN', 'IN_PROGRESS', 'CLOSED') NOT NULL DEFAULT 'OPEN',
+    assignee_id INT NULL,
+    created_at DATETIME,
+    closed_at DATETIME NULL
+);
+
 -- Insert users
 INSERT INTO users (name, email) VALUES ('John Doe', 'john.doe@example.com');
 INSERT INTO users (name, email) VALUES ('Jane Smith', 'jane.smith@example.com');
