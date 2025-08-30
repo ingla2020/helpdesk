@@ -1,10 +1,10 @@
-package com.example.omnichannelticketsystem;
+package hd;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class OmnichannelTicketSystemApplicationTests {
+class HelpdeskApplicationTests {
 
 	@Test
 	void contextLoads() {
